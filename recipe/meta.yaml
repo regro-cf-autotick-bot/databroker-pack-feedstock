@@ -6,11 +6,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 2a69d38bc23ed3b6fc7d017fead5a6096a99428858dd8b77568d78309f9d0a1b
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - databroker-pack = databroker_pack.commandline.pack:main
     - databroker-unpack = databroker_pack.commandline.unpack:main
@@ -19,10 +19,10 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - databroker >=1.0.5
     - event-model
     - intake >=0.6.0
@@ -32,6 +32,8 @@ requirements:
     - tqdm
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - databroker_pack
     - databroker_pack.commandline
